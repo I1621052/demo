@@ -6,7 +6,6 @@ var Owner = require('../model/owner');
  */
 app.get('/',(req,res)=>{
     Owner.find({})
-    .populate()
     .exec((err,owners)=>{
         if (err) {
             return;
@@ -21,7 +20,16 @@ app.post('/',(req,res)=>{
     var body=req.body;
     var owner = new Owner({
         nombre:body.nombre,
-        apellidos:body.apellidos
+        ap:body.ap,
+        am:body.am,
+        dni:body.dni,
+        department:body.department,
+        province:body.province,
+        district:body.district,
+        cel:body.cel,
+        password:body.password,
+        sexo:body.sexo
+        
     });
     owner.save((err,ownerSave)=>{
         if (err) {
@@ -44,7 +52,17 @@ app.put('/addpet/:id',(req,res)=>{
             return;
         }
         
-        ownner.mascotas.push({nombre:body.nombre,sexo:body.sexo});
+        ownner.mascotas.push({
+            nombrepet:body.nombrepet.toUpperCase(),
+            kind:body.kind.toUpperCase(),
+            birthdate:body.birthdate,
+            race:body.race.toUpperCase(),
+            sexo:body.sexo.toUpperCase(),
+            size:body.size.toUpperCase(),
+            colour:body.colour.toUpperCase(),
+            estado:Boolean(body.estado),
+            estraviado:Boolean(body.estraviado)
+        });
         ownner.save((err,ownerUpdate)=>{
             if (err) {
                 return;
@@ -67,7 +85,15 @@ app.put('/:id/:num',(req,res)=>{
         if (!owner) {
             return;
         }
-        owner.mascotas.splice(num,1,{nombre:body.nombre,sexo:body.sexo});
+        owner.mascotas.splice(num,1,{
+            nombrepet:body.nombrepet.toUpperCase(),
+            kind:body.kind.toUpperCase(),
+            birthdate:body.birthdate,
+            race:body.race.toUpperCase(),
+            sexo:body.sexo.toUpperCase(),
+            size:body.size.toUpperCase(),
+            colour:body.colour.toUpperCase(),
+        });
         owner.save((err,mascotaUpdate)=>{
             if (err) {
                 return

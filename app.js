@@ -19,14 +19,16 @@ app.use(bodyParser.json())
 //app.use(express.json());
 
 //Importar rutas
+var publicationRoutes = require('./rutas/publication');
 var ownerRoutes = require('./rutas/owner');
 
-mongoose.connection.openUri(`mongodb+srv://esther:esther@cluster0-qfhbo.mongodb.net/test?retryWrites=true&w=majority`, { useNewUrlParser: true }, (err, res) => {
+mongoose.connection.openUri(`mongodb+srv://cristianmx10:cristianmx10@cluster0-xa82i.gcp.mongodb.net/test?retryWrites=true&w=majority`, { useNewUrlParser: true }, (err, res) => {
     if (err) throw err;
     console.log('Base de datos: online')
 });
 
 //rutas
+app.use('/publication',publicationRoutes);
 app.use('/owner',ownerRoutes);
 
 //Escuchar peticiones
