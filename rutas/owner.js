@@ -1,6 +1,7 @@
 var express=require('express');
 var app= express();
 var Owner = require('../model/owner');
+var bcrypt = require('bcryptjs');
 /**
  * Listar
  */
@@ -19,7 +20,7 @@ app.get('/',(req,res)=>{
 app.post('/',(req,res)=>{
     var body=req.body;
     var owner = new Owner({
-        nombre:body.nombre,
+        name:body.name,
         ap:body.ap,
         am:body.am,
         dni:body.dni,
@@ -27,13 +28,13 @@ app.post('/',(req,res)=>{
         province:body.province,
         district:body.district,
         cel:body.cel,
-        password:body.password,
-        sexo:body.sexo
-        
+        password: bcrypt.hashSync(body.password),
+        sexo:body.sexo,
     });
+    console.log(owner);
     owner.save((err,ownerSave)=>{
         if (err) {
-            return;
+           return res.status(500).json(err);
         }
         res.status(201).json(ownerSave);
     })
@@ -60,8 +61,8 @@ app.put('/addpet/:id',(req,res)=>{
             sexo:body.sexo.toUpperCase(),
             size:body.size.toUpperCase(),
             colour:body.colour.toUpperCase(),
-            estado:Boolean(body.estado),
-            estraviado:Boolean(body.estraviado)
+            estado:JSON.parse(body.estado),
+            estraviado:JSON.parse(body.estraviado)
         });
         ownner.save((err,ownerUpdate)=>{
             if (err) {

@@ -19,6 +19,7 @@ app.use(bodyParser.json())
 //app.use(express.json());
 
 //Importar rutas
+var loginRoutes = require('./rutas/login');
 var publicationRoutes = require('./rutas/publication');
 var ownerRoutes = require('./rutas/owner');
 
@@ -29,6 +30,7 @@ mongoose.connection.openUri(`mongodb+srv://cristianmx10:cristianmx10@cluster0-xa
 
 //rutas
 app.use('/publication',publicationRoutes);
+app.use('/login',loginRoutes);
 app.use('/owner',ownerRoutes);
 
 //Escuchar peticiones

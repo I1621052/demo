@@ -48,8 +48,7 @@ var ownerSchema = new Schema({
         type: String,
         uppercase: true,
         required: [true, 'El sexo es necesario'],
-        enum: sexoValid,
-        default: 'MASCULINO'
+        enum: sexoValid
         //type: Schema.Types.ObjectId,
         //ref: 'Sexo'
         //required: true

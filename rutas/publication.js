@@ -29,6 +29,7 @@ app.post('/',(req,res)=>{
     });
     publication.save((err,publicationSave)=>{
         if (err) {
+            console.log('error');
             return;
         }
         res.status(201).json(publicationSave);
